@@ -52,8 +52,7 @@ for (var i = 0; i < race.length; i++) {
     // The following HTML text is added to the value of the reportHTML variable.
     reportHTML += "<table> <caption>" + race[i] + "</caption> <tr><th>Candidate</th><th>Voters</th></tr>";
 
-    // d. Call the candidateRows() function (you will create this function shortly) using the counter
-    // variable i and the totalVotes variable as parameter values. Add the value returned by this function to the value of the reportHTML variable.
+    // This is caling the candidateRows function using the counter variables i and totalVotes as the parameter values.
     reportHTML += candidateRows(i, totalVotes);
 
     // Adds the closing table tag to the reportHTML variable. 
@@ -71,44 +70,41 @@ function candidateRows(raceNum, totalVotes) {
     // A for loop that goes from 0 to 2 in steps of 1 unit.
     for (var j = 0; j <= 2; j++) {
 
-        //     i.Declare a variable named candidateName that retrieves the name of the current candidate and the current race.(Hint: Retrieve the candidate name from the multidimensional candidate array using the reference, candidate[raceNum][j].)
+        // A variable named candidateName that retrieves the name of the current candidate and the current race.
         var candidateName = candidate[raceNum][j];
 
-        // ii.Declare a variable named candidateParty that retrieves the party affiliation of the current candidate in the current race from the multidimensional party array.
+        // A variable named candidatePartyt that retrieves the name of the candidates party.
         var candidateParty = party[raceNum][j];
 
-        // iii.Declare a variable named candidatevotes that retrieves the votes cast
-        // for the current candidate in the current race from the multidimensional votes array.
+     // A variable named candidateVotes that retrieves the votes for the current race.
         var candidateVotes = votes[raceNum][j];
 
-        // iv.Declare a variable named candidatePercent equal to the value returned by the calcPercent()
-        // function, calculating the percentage of votes received by the current candidate in the loop.Use candidateVotes as the first parameter value and totalVotes as the second parameter value.
+        // A variable named candidatePercent that is set equal to the value returned by the calcPercent function with candidateVotes and totalVotesfirst as the parameter values.
         var candidatePercent = calcPercent(candidateVotes, totalVotes);
 
-        // 12. Scroll up to the candidateRows() function. Directly before the line that adds the HTML code </tr> to the value of the rowHTML variable, insert a for loop with a counter variable k that goes from 0 up to a value less than candidatePercent in increments of 1 unit. Each time through the loop call the createBar() function using candidateParty and candidatePercent as the parameter values
+        // Adds the following HTML code to the value of the rowHTML variable
+        rowHTML += "<tr><td>" + candidateName + " (" + candidateParty + ") </td><td>" + candidateVotes.toLocaleString() + "( " + candidatePercent.toFixed(1) + "%)</td>";
 
-        // v.Add the following HTML code to the value of the rowHTML variable
-        rowHTML += "<tr><td>" + candidateName + " (" + candidateParty + ") </td><td>" + candidateVotes.toLocaleString() + "( " + candidatePercent.toFixed(1) + "%)</td></tr>";
-
-        // where name is the value of candidateName, party is the value of candidateParty, votes is the value of candidateVotes, and percent is the value of candidatePercent.
-
-        // Apply the toLocaleString() method to votes in order to display the vote total with a thousands separator.Apply the toFixed(1) method to percent in order to display percentage values to 1 decimal place.
-
-        // Returns the value of the rowHTML variable.
+        // A for loop with a variable k that goes from 0 up to a value less than candidatePercent in increments of 1 unit.
+        for(var k = 0; k <= candidatePercent; k++) {
+            rowHTML += createBar(candidateParty, candidatePercent);
+        }
+       rowHTML += "</tr>"
 
     }
+
+    // Returns the value of the rowHTML variable.
     return rowHTML;
 }
-// 10. Pam also wants the report to display the vote percentages as bar charts with the length of the bar corresponding to the percentage value. Return to the vw_results.js file in your editor. At the bottom of the file, create a function named createbar() with one parameter named partyType. Add the commands described in Steps a through b to the function:
+
+// A function named createBar with the parameter partyType.
 function createBar(partyType) {
 
-    // a. Declare a variable named barHtML and set its initial value to an empty text string.
+    // A variable named barHtML has a value of a empty text string.
     var barHTML = "";
 
-    //     b. Create a switch/case statement that tests the value of the partyType parameter.
-    // If partyType equal “D” set barHTML equal to:
-    // <td class='dem'></td> If partyType equals “R” set barHTML equal to: <td class='rep'></td> Finally, if partyType equals “I” set barHTML to: <td class='ind'></td>
-    switch (partyTypeP) {
+    // A switch/case statement that tests the value of the partyType parameter.
+    switch (partyType) {
         case "D":
             barHTML = "<td class='dem'></td>";
             break;
@@ -117,7 +113,8 @@ function createBar(partyType) {
             break;
         case "I":
             barHTML = "<td class='ind'></td>";
+            break;
     }
-    // 11. Return the value of barHTML.
-    return barHTML
+    // Returns the value of the barHTML variable.
+    return barHTML;
 }
